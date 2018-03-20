@@ -3,7 +3,6 @@ package com.wiley.wpng.ref.api;
 import com.wiley.wpng.ref.api.auth.InvalidAuthException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -44,53 +43,7 @@ public class UserController {
 
     }
 
-    @RequestMapping(value = "/user/auth", method = RequestMethod.POST)
-    AuthenticationResponse auth(@RequestHeader(value="Authorization") String authValue, @RequestHeader(value="Accept") String acceptValue) {
-        log.debug("Authenticating auth  " + authValue);
-       // if ("password".equals(password)) {
-            Map<String, Object> attrs = new HashMap<>();
-            attrs.put("firstName", "Parker");
-            attrs.put("lastName", "Neff");
-            ArrayList<String> roles = new ArrayList<>();
-            roles.add("student");
-            roles.add("instructor");
-            attrs.put("roles",roles);
-            AuthenticationResponse authenticationResponse = new AuthenticationResponse();
-            authenticationResponse.setId("parker");
-            authenticationResponse.setAttributes(attrs);
-
-            return authenticationResponse;
-      //  } else {
-      //      throw new InvalidAuthException();
-
-      //  }
 
 
 
-    }
-
-    @RequestMapping(value = "/user/authzz", method = RequestMethod.POST)
-    AuthenticationResponse authzz(@RequestParam String userId, @RequestParam String password) {
-        log.debug("Authenticating user: " + userId + "/" + password);
-        if ("password".equals(password)) {
-            Map<String, Object> attrs = new HashMap<>();
-            attrs.put("firstName", "Parker");
-            attrs.put("lastName", "Neff");
-            ArrayList<String> roles = new ArrayList<>();
-            roles.add("student");
-            roles.add("instructor");
-            attrs.put("roles",roles);
-            AuthenticationResponse authenticationResponse = new AuthenticationResponse();
-            authenticationResponse.setId(userId);
-            authenticationResponse.setAttributes(attrs);
-
-            return authenticationResponse;
-        } else {
-            throw new InvalidAuthException();
-
-        }
-
-
-
-    }
 }
