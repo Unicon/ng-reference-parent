@@ -10,7 +10,7 @@ import java.util.Map;
 @Service
 public class ContrivedUserService {
 
-    public static final String USER_DISABLED = "disablecUser";
+    public static final String USER_DISABLED = "disabledUser";
     public static final String USER_TOO_MANY_ATTEMPTS = "badPasswordUser";
 
 

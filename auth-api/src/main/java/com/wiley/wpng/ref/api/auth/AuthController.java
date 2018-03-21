@@ -35,16 +35,22 @@ public class AuthController {
         User user = userService.getUserByLoginId(loginName);
 
        if (user == null) {
+           log.debug("User is null, returning  " + HttpStatus.NOT_FOUND);
            return new ResponseEntity(HttpStatus.NOT_FOUND);
 
        } else {
            if (user.getDisabled()) {
+               log.debug("User disabled returning  " + HttpStatus.LOCKED);
                return new ResponseEntity(HttpStatus.LOCKED);
            }
            if (password != null && password.equalsIgnoreCase(user.getPassword())) {
+               log.debug("Valid password, returning  " + HttpStatus.OK);
+               user.setLoginAttempts(0);
+               userService.putUser(user);
                return new ResponseEntity<>(user.getWileyId(), HttpStatus.OK);
 
            } else {
+               log.debug("Invalid password, returning  " + HttpStatus.NOT_FOUND);
                user.setLoginAttempts(user.getLoginAttempts() + 1);
                if (user.getLoginAttempts() >= INVALID_LOGIN_ATTEMPTS) {
                    user.setDisabled(true);
