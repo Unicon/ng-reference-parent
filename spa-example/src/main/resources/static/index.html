@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/loginHelper.js"></script>
+</head>
+<body>
+<h1>WileyPLUS NextGen Reference Single Page Application</h1>
+<a id="loginLink" href="">
+    Sign In With CAS
+</a>
+<p></p>
+<a id="auth0LoginLink" href="">
+    Sign In With Auth0
+</a>
+<script type="application/javascript">
+    var loginLink = document.getElementById("loginLink");
+    loginLink.setAttribute("href", buildLoginLink());
+    var auth0LoginLink = document.getElementById("auth0LoginLink");
+    auth0LoginLink.setAttribute("href", buildAuth0LoginLink());
+
+</script>
+
+</body>
+</html>
