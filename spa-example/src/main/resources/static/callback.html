@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="js/jwt-client.js"></script>
+
+    <script type="text/javascript">
+        function callApi (token, user) {
+            var url = 'https://localhost:8444/user/parker';
+
+            var headers = { Authorization: 'Bearer ' + token};
+            $.ajax({
+                url: url,
+                headers: headers
+            })
+                .done(function(result) {
+                    $("#status").text("200");
+                    $("#apiReturn").text(result.firstName);
+                })
+                .fail(function(jqXHR, textStatus) {
+
+                    $("#status").text(jqXHR.status);
+                    $("#apiReturn").text("");
+                });
+            
+        }
+        $(document).ready(function () {
+
+            $('#ajaxBtn').click(function(){
+                callApi("badtoken", "parker");
+
+
+            });
+            $('#ajaxJwtBtn').click(function(){
+                callApi(sessionStorage.getItem('id_token'), "parker");
+            });
+        });
+
+
+    </script>
+
+</head>
+<body>
+
+<script src="js/parseParms.js"></script>
+
+
+
+<div id="mainContent">
+    <h1>Authentication Info</h1>
+    <table border="1" cellpadding="5">
+        <tr>
+            <td>JWT Issued by</td>
+            <td> <div id="issuer"></div></td>
+        </tr>
+        <tr>
+            <td>JWT Audience</td>
+            <td><div id="audience"></div></td>
+        </tr>
+        <tr>
+            <td>JWT Subject (User)</td>
+            <td><div id="user" /></td>
+        </tr>
+        <tr>
+            <td>RAW Token</td>
+            <td><div id="token" /></td>
+        </tr>
+
+    </table>
+
+
+
+
+
+
+</div>
+<script type="application/javascript">
+  //  var accessToken = getAccessToken();
+    var idToken = getIdToken();
+    console.log("valiating id token " + idToken);
+  if (JWT.validate(idToken)) {
+      console.log("id token valid");
+      // If so, save it for further use
+      // (by default inside localStorage)
+      JWT.keep(idToken);
+      // You can access the parsed version of the token anytime
+      var session = JWT.remember();
+      console.log("JWT INFO");
+      console.log(session);
+
+// And access any useful info inside the claim
+      //var userId = session.claim.userId;
+
+  } else {
+      // If not, we might want to remove
+      // the last token. Or not. Depends on you...
+      JWT.forget();
+  }
+
+
+    sessionStorage.setItem("id_token", idToken);
+    var session = JWT.remember();
+    $("#issuer").text(session.claim.iss);
+    $("#audience").text(session.claim.aud);
+    $("#user").text(session.claim.sub);
+    $("#token").text(idToken);
+   // document.getElementById("issuer").appendChild(document.createTextNode("issued_by: " + session.claim.iss));
+
+  //document.getElementById("audience").appendChild(document.createTextNode("audience: " + session.claim.aud));
+ // document.getElementById("user").appendChild(document.createTextNode("user: " + session.claim.sub));
+  //document.getElementById("token").appendChild(document.createTextNode("Raw JWT: " + idToken));
+</script>
+
+
+
+<p>
+</p>
+<hr>
+<input type="button" id="ajaxBtn" value="Send GET request" />
+<input type="button" id="ajaxJwtBtn" value="Send GET request with JWT" />
+<p>
+</p>
+<table border="1px" >
+    <tr>
+        <td>Status Code</td>
+        <td><div id="status"/> </td>
+     <tr>
+        <td>Return Value</td>
+        <td><div id="apiReturn"></div></td>
+    </tr>
+</table>
+</body>
+
+</html>
