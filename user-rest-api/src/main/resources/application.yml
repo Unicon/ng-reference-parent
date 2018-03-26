@@ -1,0 +1,25 @@
+server:
+  port: 8447
+
+
+
+
+spring:
+  jpa.hibernate.ddl-auto: create
+  datasource:
+    url: jdbc:mysql://localhost:3306/wpng?useSSL=false
+    username: wpnguser
+    password: secret
+
+
+oidc:
+  oidcIssuers:
+    http://localhost:8080/cas/oidc: https://localhost:8443/cas/oidc/jwks
+    https://parkerneff.auth0.com/: https://parkerneff.auth0.com/.well-known/jwks.json
+
+logging:
+  level:
+    root: INFO
+    com.wiley.wpng.ref.api: DEBUG
+    org.jose4j.jwt: TRACE
+
