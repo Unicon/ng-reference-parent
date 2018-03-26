@@ -6,12 +6,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "users")
 public class User {
 
 
@@ -19,19 +17,38 @@ public class User {
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Getter
     private Long id;
+
+    @JsonProperty("first_name")
     @Getter @Setter
     private String firstName;
+
     @JsonProperty("last_name")
     @Getter @Setter
     private String lastName;
-    @Getter @Setter
-    private String loginName;
+
+
+
+    @JsonProperty("user_type")
     @Getter @Setter
     private String userType;
+
+    @JsonProperty("user_role")
     @Getter @Setter
     private String userRole;
+
+    @JsonProperty("student_id")
     @Getter @Setter
     private String studentId;
+
+    @JsonProperty("accepted_tos")
+    @Getter @Setter
+    private Boolean acceptedTOS;
+
+
+    @JsonProperty("login_name")
+    @Getter @Setter
+    private String loginName;
+
     @JsonIgnore
     @Getter @Setter
     private String password;
