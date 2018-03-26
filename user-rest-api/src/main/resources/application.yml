@@ -1,0 +1,11 @@
+server:
+  port: 8447
+
+
+
+logging:
+  level:
+    root: INFO
+    com.wiley.wpng.ref.api: DEBUG
+    org.jose4j.jwt: TRACE
+
