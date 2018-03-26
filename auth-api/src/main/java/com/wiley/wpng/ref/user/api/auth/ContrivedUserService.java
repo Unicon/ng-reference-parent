@@ -13,14 +13,15 @@ public class ContrivedUserService {
 
     private Map<String, User> userMap = new HashMap<>();
    public ContrivedUserService() {
-        userMap.put("user1", new User("user1", "wileyuser1", "password", false));
-        userMap.put("user2", new User("user2", "wileyuser2", "password", false));
-        userMap.put(USER_DISABLED, new User(USER_DISABLED, USER_DISABLED + "@wiley", "password", true));
+       // userMap.put("user1", new User("user1", "wileyuser1", "password", false));
+    //    userMap.put("user2", new User("user2", "wileyuser2", "password", false));
+   //     userMap.put(USER_DISABLED, new User(USER_DISABLED, USER_DISABLED + "@wiley", "password", true));
 
 
     }
     public void putUser(User user) {
-       userMap.put(user.getLoginId(), user);
+
+       //userMap.put(user.getLoginId(), user);
     }
     public User getUserByLoginId(String loginId) {
         return userMap.get(loginId);

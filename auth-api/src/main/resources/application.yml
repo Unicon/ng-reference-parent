@@ -14,4 +14,11 @@ logging:
     com.wiley.wpng.ref.api.auth: DEBUG
 
 
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/wpng?useSSL=false
+    username: wpnguser
+    password: secret
+
+
 

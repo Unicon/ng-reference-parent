@@ -1,26 +1,40 @@
 package com.wiley.wpng.ref.user.api.auth;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "users")
 public class User {
+
+
+    @Id
+    @Getter
+    private Long id;
+
+
+
+
+    @JsonProperty("login_name")
     @Getter @Setter
-    private String loginId;
-    @Getter @Setter
-    private String wileyId;
+    private String loginName;
+
+    @JsonIgnore
     @Getter @Setter
     private String password;
-    @Getter @Setter
-    private Boolean disabled = false;
-    @Getter @Setter
-    private int loginAttempts = 0;
 
-    public User(String loginId, String wileyId, String password, Boolean disabled) {
-        this.loginId = loginId;
-        this.wileyId = wileyId;
-        this.password = password;
-        this.disabled = disabled;
 
-    }
+
+    public User() {}
+
+
+
+
+
 
 }
