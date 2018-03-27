@@ -1,0 +1,20 @@
+server:
+  port: 8446
+  ssl:
+    key-password: changeit
+    key-store: classpath:thekeystore
+    key-store-provider: SUN
+    key-store-type: JKS
+    key-alias: cas
+
+
+logging:
+  level:
+    root: DEBUG
+    com.wiley.wpng.ref.api: DEBUG
+    org.jose4j.jwt: TRACE
+
+oidc:
+  oidcIssuers:
+    http://localhost:8080/cas/oidc: https://localhost:8443/cas/oidc/jwks
+    https://parkerneff.auth0.com/: https://parkerneff.auth0.com/.well-known/jwks.json

@@ -13,6 +13,8 @@
         <module>auth-api</module>
         <module>user-service</module>
         <module>user-rest-api</module>
+        <module>user-api</module>
+        <module>reference-common</module>
     </modules>
     <packaging>pom</packaging>
 

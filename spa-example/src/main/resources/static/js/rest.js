@@ -2,7 +2,7 @@ function getUser() {
 
     jQuery.ajax({
         type: "GET",
-        url: "http://localhost:8081/user/parker",
+        url: "https://localhost:8447/users/parker",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data, status, jqXHR) {

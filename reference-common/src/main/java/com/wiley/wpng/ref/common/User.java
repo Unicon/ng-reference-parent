@@ -1,22 +1,15 @@
-package com.wiley.wpng.ref.userapi;
-
+package com.wiley.wpng.ref.common;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "users")
 public class User {
 
 
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    @Getter
-    private Long id;
+    @Getter @Setter
+    private Integer id;
 
     @JsonProperty("first_name")
     @Getter @Setter
@@ -30,11 +23,11 @@ public class User {
 
     @JsonProperty("user_type")
     @Getter @Setter
-    private String userType;
+    private String userType = "W";
 
     @JsonProperty("user_role")
     @Getter @Setter
-    private String userRole;
+    private String userRole = "student";
 
     @JsonProperty("student_id")
     @Getter @Setter
@@ -42,7 +35,7 @@ public class User {
 
     @JsonProperty("accepted_tos")
     @Getter @Setter
-    private Boolean acceptedTOS;
+    private Boolean acceptedTOS = false;
 
 
     @JsonProperty("login_name")
@@ -53,8 +46,20 @@ public class User {
     @Getter @Setter
     private String password;
 
-    public User() {}
+    @JsonIgnore
+    @Getter @Setter
+    private Integer loginAttempts = 0;
 
+
+
+    public User(Integer id, String firstName, String lastName, String studentId,  String loginName, String password) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.studentId = studentId;
+        this.loginName = loginName;
+        this.password = password;
+    }
 
 
     @Override
@@ -66,3 +71,4 @@ public class User {
 
 
 }
+
