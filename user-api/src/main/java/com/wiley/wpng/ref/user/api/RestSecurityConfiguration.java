@@ -19,8 +19,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-//@ConfigurationProperties(prefix = "oidc")
-//@EnableWebSecurity
+@ConfigurationProperties(prefix = "oidc")
+@EnableWebSecurity
 public class RestSecurityConfiguration extends WebSecurityConfigurerAdapter {
     private Log log = LogFactory.getLog(RestSecurityConfiguration.class);
 
