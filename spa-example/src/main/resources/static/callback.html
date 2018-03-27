@@ -8,7 +8,9 @@
 
     <script type="text/javascript">
         function callApi (token, user) {
-            var url = 'https://localhost:8446/user/parker';
+            var url = 'https://localhost:8446/users/search?role=student&login_name=' + user;
+
+            console.log("get request " + url);
 
             var headers = { Authorization: 'Bearer ' + token};
             $.ajax({
@@ -17,12 +19,12 @@
             })
                 .done(function(result) {
                     $("#status").text("200");
-                    $("#apiReturn").text(result.firstName);
+                    $("#apiReturn").text(result.first_name + " " + result.last_name);
                 })
                 .fail(function(jqXHR, textStatus) {
-
+                    console.log("failed. got status " + jqXHR.status);
                     $("#status").text(jqXHR.status);
-                    $("#apiReturn").text("");
+                    $("#apiReturn").text("ERROR");
                 });
             
         }
@@ -104,6 +106,7 @@
     var session = JWT.remember();
     $("#issuer").text(session.claim.iss);
     $("#audience").text(session.claim.aud);
+    var user = session.claim.sub;
     $("#user").text(session.claim.sub);
     $("#token").text(idToken);
    // document.getElementById("issuer").appendChild(document.createTextNode("issued_by: " + session.claim.iss));

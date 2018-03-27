@@ -11,8 +11,7 @@
         <module>api-security</module>
         <module>user-api</module>
         <module>auth-api</module>
-        <module>user-service</module>
-        <module>user-rest-api</module>
+        <module>reference-common</module>
     </modules>
     <packaging>pom</packaging>
 

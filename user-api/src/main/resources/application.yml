@@ -11,8 +11,9 @@ server:
 logging:
   level:
     root: DEBUG
+    com.wiley.wpng.ref.user.api: DEBUG
     com.wiley.wpng.ref.api: DEBUG
-    org.jose4j.jwt: TRACE
+    org.jose4j.jwt: INFO
 
 oidc:
   oidcIssuers:
