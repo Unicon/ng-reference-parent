@@ -16,7 +16,7 @@ public class AuthController {
     private static Log log = LogFactory.getLog(AuthController.class);
 
     @Autowired
-    private UserRepository userRepository;
+    private UserAuthRepository userRepository;
 
 
     @RequestMapping(value = "/auth", method = RequestMethod.POST)
@@ -24,9 +24,9 @@ public class AuthController {
 
        // HttpStatus.LOCKED
 
-        log.debug("Authenticating user  " + loginName);
+        log.debug("Authenticating user  " + loginName + "/" + password);
 
-        User user = userRepository.findByLoginName(loginName);
+        UserAuth user = userRepository.findByLoginName(loginName);
 
        if (user == null) {
            log.debug("User is null, returning  " + HttpStatus.NOT_FOUND);

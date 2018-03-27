@@ -11,14 +11,10 @@ server:
 logging:
   level:
     root: INFO
-    com.wiley.wpng.ref.api.auth: DEBUG
+    com.wiley.wpng.ref.user.api.auth: DEBUG
+    javax.persistence: DEBUG
 
 
-spring:
-  datasource:
-    url: jdbc:mysql://localhost:3306/wpng?useSSL=false
-    username: wpnguser
-    password: secret
 
 
 

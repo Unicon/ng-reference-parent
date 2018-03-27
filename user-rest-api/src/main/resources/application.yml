@@ -4,12 +4,6 @@ server:
 
 
 
-spring:
-  jpa.hibernate.ddl-auto: create
-  datasource:
-    url: jdbc:mysql://localhost:3306/wpng?useSSL=false
-    username: wpnguser
-    password: secret
 
 
 oidc:
