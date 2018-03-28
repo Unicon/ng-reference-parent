@@ -3,6 +3,7 @@ package com.wiley.wpng.ref.lti.jwt;
 import com.wiley.wpng.ref.lti.Application;
 import org.jose4j.jwk.JsonWebKey;
 import org.jose4j.jwt.JwtClaims;
+import org.jose4j.jwt.NumericDate;
 import org.jose4j.jwt.consumer.JwtConsumer;
 import org.jose4j.jwt.consumer.JwtConsumerBuilder;
 import org.junit.Test;
@@ -33,15 +34,20 @@ public class JwtServiceTest {
 
 
 
-    @Value("${issuer}") String issuer;
+    @Value("${jwt.issuer}") String issuer;
 
-    @Value("${audience}") String audience;
+    @Value("${jwt.audience}") String audience;
+
+
+    // Time till jwt will expire.  Default is 6 hours (360 minutes)
+    @Value("${jwt.expire.minutes:360}")
+    int defaultJwtExpireMinutes;
 
     public static final String SUBJECT = "jdoe";
 
 
     @Test
-    public void generateJwt()   {
+    public void generateJwtDefaultExpire()   {
         assertNotNull(jwtService);
         String subject = "jdoe";
         try {
@@ -56,6 +62,39 @@ public class JwtServiceTest {
             assertEquals(subject, claims.getSubject() );
             assertEquals(issuer, claims.getIssuer());
             assertEquals(audience, claims.getAudience().get(0));
+            assertEquals(defaultJwtExpireMinutes,(claims.getExpirationTime().getValueInMillis() - claims.getIssuedAt().getValueInMillis()) / 60000);
+
+          //  assertEquals(defaultJwtExpireMinutes, expireMin);
+           // NumericDate numericDate = claims.getExpirationTime();
+          //  System.out.println("nueric: " + numericDate.toString());
+
+
+
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+
+
+    }
+
+    @Test
+    public void generateJwt()   {
+        assertNotNull(jwtService);
+        String subject = "jdoe";
+        int expireMin = 30;
+        try {
+            String jwt = jwtService.issueJwt(subject, expireMin);
+            assertNotNull(jwt);
+            System.out.println("JWT:");
+            System.out.println(jwt);
+
+            JwtClaims claims = validateJwt(jwt);
+            assertNotNull(claims);
+
+            assertEquals(subject, claims.getSubject() );
+            assertEquals(issuer, claims.getIssuer());
+            assertEquals(audience, claims.getAudience().get(0));
+            assertEquals(expireMin,(claims.getExpirationTime().getValueInMillis() - claims.getIssuedAt().getValueInMillis()) / 60000);
 
 
 

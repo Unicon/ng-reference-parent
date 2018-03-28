@@ -19,9 +19,9 @@ import java.util.Map;
 
 @Service
 public class KeyPairService {
-    @Value("${keystore.file}")
+    @Value("${jwt.keystore.file}")
     private String keyStoreFile;
-    @Value("${keystore.password}")
+    @Value("${jwt.keystore.password}")
     private String keyStorePassword;
 
     private Log log = LogFactory.getLog(KeyPairService.class);

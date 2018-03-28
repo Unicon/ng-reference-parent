@@ -6,28 +6,52 @@ import org.jose4j.jwt.JwtClaims;
 import org.jose4j.lang.JoseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
+@Service
 public class JwtService {
 
 
-    @Value("${issuer}") String issuer;
+    @Value("${jwt.issuer}")
+    String issuer;
 
-    @Value("${audience}") String audience;
+    @Value("${jwt.audience}")
+    String audience;
+
+    // Time till jwt will expire.  Default is 6 hours (360 minutes)
+    @Value("${jwt.expire.minutes:360}")
+    int defaultJwtExpireMinutes;
 
 
     @Autowired
     private KeyPairService keyPairService;
 
-//    @Autowired
-//    private KeyInfo keyInfo;
-
+    /**
+     * Issue JWT with the default expiration
+     * @param subject
+     * @return
+     * @throws JwtException
+     */
     public String issueJwt(String subject) throws JwtException {
+        return issueJwt(subject, defaultJwtExpireMinutes);
+
+    }
+
+    /**
+     * Issue JWT with expiration time explicitly passed
+     * @param subject
+     * @param jwtExpireMinutes
+     * @return
+     * @throws JwtException
+     */
+
+    public String issueJwt(String subject, int jwtExpireMinutes) throws JwtException {
 
         // Create the Claims, which will be the content of the JWT
         JwtClaims claims = new JwtClaims();
         claims.setIssuer(issuer);  // who creates the token and signs it
         claims.setAudience(audience);
-        claims.setExpirationTimeMinutesInTheFuture(60); // time when the token will expire (10 minutes from now)
+        claims.setExpirationTimeMinutesInTheFuture(jwtExpireMinutes); // time when the token will expire (10 minutes from now)
         claims.setGeneratedJwtId(); // a unique identifier for the token
         claims.setIssuedAtToNow();  // when the token was issued/created (now)
         claims.setNotBeforeMinutesInThePast(2); // time before which the token is not yet valid (2 minutes ago)
