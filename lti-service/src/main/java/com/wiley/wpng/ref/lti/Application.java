@@ -1,7 +1,9 @@
 package com.wiley.wpng.ref.lti;
 
 import com.wiley.wpng.ref.common.InMemoryUserService;
-import com.wiley.wpng.ref.lti.com.wiley.wpng.ref.lti.service.UserService;
+import com.wiley.wpng.ref.common.UserRepository;
+
+import com.wiley.wpng.ref.common.UserService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -27,6 +29,9 @@ public class Application {
 
     @Bean
     public UserService userService() {
-        return new InMemoryUserService();
+        InMemoryUserService userService = new InMemoryUserService();
+        userService.setUserRepository(new UserRepository());
+
+        return userService;
     }
 }

@@ -1,9 +1,12 @@
 package com.wiley.wpng.ref.common;
 
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Service
 public class UserRepository {
     private List<User> users  = new ArrayList<>();
 

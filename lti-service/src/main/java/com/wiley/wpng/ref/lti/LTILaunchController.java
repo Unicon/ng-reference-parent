@@ -1,6 +1,7 @@
 package com.wiley.wpng.ref.lti;
 
 import com.wiley.wpng.ref.common.User;
+import com.wiley.wpng.ref.common.UserService;
 import com.wiley.wpng.ref.lti.jwt.JwtService;
 import com.wiley.wpng.ref.lti.jwt.KeyPairService;
 import org.apache.commons.logging.Log;
@@ -30,7 +31,7 @@ public class LTILaunchController implements InitializingBean {
     private KeyPairService keyPairService;
 
     @Autowired
-    RestTemplate restTemplate;
+    private UserService userService;
 
     private String jwksJson = null;
 
@@ -47,16 +48,14 @@ public class LTILaunchController implements InitializingBean {
     @PostMapping("/launch")
     public String greeting(@RequestParam(name="oauth_consumer_key", required=false, defaultValue="1234") String consumerKey,
                            @RequestParam(name="user_id", required=false, defaultValue="jdoe") String userId,
-                           Model model) {
+                           Model model) throws Exception {
 
         log.info("Handling Request");
         // The first step is to get the wiley id associated
         // with the user_id/oauth_consumer_key combination
-        Map<String, String> parms = new HashMap<>();
-        parms.put("userId", userId);
-        parms.put("consumerKey", consumerKey);
 
-        User user = restTemplate.getForObject("https://localhost:8446/user/{userId/consumer/{consumerKey}", User.class, parms);
+
+        User user = userService.getUser(userId, consumerKey);
 
 
         if (user == null) {
@@ -68,15 +67,20 @@ public class LTILaunchController implements InitializingBean {
         } else {
             // if the user was found, check to see if user is provisioned for course
             // if not provisioned go to course provisioning step
+            // TODO we will implement this later
 
         }
 
-        // The second step is to generate a JWT for the wiley id obtained
-        // in the previous step
+        // Once we are done with the user, lets generate JWT for the wiley id obtained
+        // in the previous steps
+        String jwt = jwtService.issueJwtForUser(Integer.toString(user.getId()));
+        log.info("Generated jwt: " + jwt);
 
 
 
-        model.addAttribute("name", "hello");
+
+        model.addAttribute("name", user.getFirstName() + " " + user.getLastName());
+        model.addAttribute("token", jwt);
         return "tool";
     }
 

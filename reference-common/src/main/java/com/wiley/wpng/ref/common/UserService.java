@@ -1,4 +1,4 @@
-package com.wiley.wpng.ref.lti.com.wiley.wpng.ref.lti.service;
+package com.wiley.wpng.ref.common;
 
 import com.wiley.wpng.ref.common.User;
 
