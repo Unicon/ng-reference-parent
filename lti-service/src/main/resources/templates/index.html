@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sample LTI Launch</title>
+
+</head>
+<body>
+<h1>LTI Launch Example</h1>
+
+
+<br>
+<form action="https://localhost:8447/launch"  method="post" target="tool_iframe">
+    LTI User:<br>
+    <input type="text" name="lti_user" value="myuser"><br>
+    Consumer Key:<br>
+    <input type="text" name="oauth_consumer_key" value="12345"><br><br>
+    <input type="submit" value="Submit" >
+</form>
+<br>
+<br>
+<iframe name="tool_iframe" src="tool_iframe.png"></iframe>
+
+</body>
+</html>
