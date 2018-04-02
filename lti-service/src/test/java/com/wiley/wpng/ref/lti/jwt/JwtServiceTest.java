@@ -3,7 +3,6 @@ package com.wiley.wpng.ref.lti.jwt;
 import com.wiley.wpng.ref.lti.Application;
 import org.jose4j.jwk.JsonWebKey;
 import org.jose4j.jwt.JwtClaims;
-import org.jose4j.jwt.NumericDate;
 import org.jose4j.jwt.consumer.JwtConsumer;
 import org.jose4j.jwt.consumer.JwtConsumerBuilder;
 import org.junit.Test;
@@ -40,18 +39,18 @@ public class JwtServiceTest {
 
 
     // Time till jwt will expire.  Default is 6 hours (360 minutes)
-    @Value("${jwt.expire.minutes:360}")
-    int defaultJwtExpireMinutes;
+   // @Value("${jwt.expire.minutes:360}")
+   // int defaultJwtExpireMinutes;
 
     public static final String SUBJECT = "jdoe";
 
 
     @Test
-    public void generateJwtDefaultExpire()   {
+    public void generateUserJwt()   {
         assertNotNull(jwtService);
         String subject = "jdoe";
         try {
-            String jwt = jwtService.issueJwt(subject);
+            String jwt = jwtService.issueJwtForUser(subject);
             assertNotNull(jwt);
             System.out.println("JWT:");
             System.out.println(jwt);
@@ -62,11 +61,8 @@ public class JwtServiceTest {
             assertEquals(subject, claims.getSubject() );
             assertEquals(issuer, claims.getIssuer());
             assertEquals(audience, claims.getAudience().get(0));
-            assertEquals(defaultJwtExpireMinutes,(claims.getExpirationTime().getValueInMillis() - claims.getIssuedAt().getValueInMillis()) / 60000);
+            assertEquals(360,(claims.getExpirationTime().getValueInMillis() - claims.getIssuedAt().getValueInMillis()) / 60000);
 
-          //  assertEquals(defaultJwtExpireMinutes, expireMin);
-           // NumericDate numericDate = claims.getExpirationTime();
-          //  System.out.println("nueric: " + numericDate.toString());
 
 
 
@@ -80,13 +76,12 @@ public class JwtServiceTest {
     @Test
     public void generateJwt()   {
         assertNotNull(jwtService);
-        String subject = "jdoe";
-        int expireMin = 30;
+        String subject = "lti_service";
+
         try {
-            String jwt = jwtService.issueJwt(subject, expireMin);
+            String jwt = jwtService.issueJwtForService();
             assertNotNull(jwt);
-            System.out.println("JWT:");
-            System.out.println(jwt);
+
 
             JwtClaims claims = validateJwt(jwt);
             assertNotNull(claims);
@@ -94,7 +89,7 @@ public class JwtServiceTest {
             assertEquals(subject, claims.getSubject() );
             assertEquals(issuer, claims.getIssuer());
             assertEquals(audience, claims.getAudience().get(0));
-            assertEquals(expireMin,(claims.getExpirationTime().getValueInMillis() - claims.getIssuedAt().getValueInMillis()) / 60000);
+            assertEquals(5,(claims.getExpirationTime().getValueInMillis() - claims.getIssuedAt().getValueInMillis()) / 60000);
 
 
 

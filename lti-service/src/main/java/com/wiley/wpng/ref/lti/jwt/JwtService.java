@@ -22,6 +22,12 @@ public class JwtService {
     @Value("${jwt.expire.minutes:360}")
     int defaultJwtExpireMinutes;
 
+    @Value("${jwt.service.expire.minutes:5}")
+    private int serviceExpireMinutes;
+
+    @Value("${jwt.service.subject:lti_service}")
+    private String serviceSubject;
+
 
     @Autowired
     private KeyPairService keyPairService;
@@ -32,8 +38,19 @@ public class JwtService {
      * @return
      * @throws JwtException
      */
-    public String issueJwt(String subject) throws JwtException {
+    public String issueJwtForUser(String subject) throws JwtException {
         return issueJwt(subject, defaultJwtExpireMinutes);
+
+    }
+
+    /**
+     * Issue a JWT that will be used by the LTI service
+     * for NG API Calls
+     * @return
+     * @throws JwtException
+     */
+    public String issueJwtForService() throws JwtException {
+        return issueJwt(serviceSubject, serviceExpireMinutes );
 
     }
 
@@ -45,7 +62,7 @@ public class JwtService {
      * @throws JwtException
      */
 
-    public String issueJwt(String subject, int jwtExpireMinutes) throws JwtException {
+    private String issueJwt(String subject, int jwtExpireMinutes) throws JwtException {
 
         // Create the Claims, which will be the content of the JWT
         JwtClaims claims = new JwtClaims();
