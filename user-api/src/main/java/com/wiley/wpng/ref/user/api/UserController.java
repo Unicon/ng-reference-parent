@@ -41,15 +41,16 @@ public class UserController {
 
     }
 
-    @RequestMapping(value = "/user/{lmsId}/inst/{instId}", method = RequestMethod.GET)
-    public User lmsUserGet(@PathVariable String lmsId, @PathVariable String instId) {
-//            User user = new User();
-//            user.setUserId("pneff@unicon.net");
-//            user.setLmsId(lmsId);
-//            user.setInstId(instId);
-//            user.setFirstName("Parker");
-//            user.setLastName("Neff");
-        return null;
+
+    @RequestMapping(value = "/user/{userId/consumer/{consumerKey}", method = RequestMethod.GET)
+    public ResponseEntity<?> lmsUserGet(@PathVariable String userId, @PathVariable String consumerKey, @RequestParam(value = "canvas)id", required = false)  String canvasId) {
+        if ("bad".equalsIgnoreCase(consumerKey)) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            // this is just a bogus call.  It should user the userId and consumerKey for the lookup
+            return new ResponseEntity<>(userRepository.findByLoginName("smore"), HttpStatus.OK);
+
+        }
 
     }
 
