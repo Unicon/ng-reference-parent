@@ -46,8 +46,9 @@ public class LTILaunchController implements InitializingBean {
      * @return
      */
     @PostMapping("/launch")
-    public String greeting(@RequestParam(name="oauth_consumer_key", required=false, defaultValue="1234") String consumerKey,
+    public String launch(@RequestParam(name="oauth_consumer_key", required=false, defaultValue="1234") String consumerKey,
                            @RequestParam(name="user_id", required=false, defaultValue="jdoe") String userId,
+                         @RequestParam(name="custom_canvas_id", required=false, defaultValue="myccid") String canvasUserId,
                            Model model) throws Exception {
 
         log.info("Handling Request");
