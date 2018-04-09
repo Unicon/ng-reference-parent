@@ -1,12 +1,14 @@
 package com.wiley.wpng.ref.lti.jwt;
 
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jose4j.jwk.JsonWebKeySet;
 import org.jose4j.jwk.PublicJsonWebKey;
 import org.jose4j.jwk.RsaJsonWebKey;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
@@ -19,10 +21,13 @@ import java.util.Map;
 
 @Service
 public class KeyPairService {
-    @Value("${jwt.keystore.file}")
+    @Value("${jwt.key-store}")
     private String keyStoreFile;
-    @Value("${jwt.keystore.password}")
+    @Value("${jwt.key-password}")
     private String keyStorePassword;
+
+    @Autowired
+    private ApplicationContext appContext;
 
     private Log log = LogFactory.getLog(KeyPairService.class);
 
@@ -32,7 +37,8 @@ public class KeyPairService {
 
 
         try {
-            Resource resource = new ClassPathResource(keyStoreFile);
+
+            Resource resource = appContext.getResource(keyStoreFile);
             KeyStore keyStore = KeyStore.getInstance("JKS");
 
             keyStore.load(resource.getInputStream(), keyStorePassword.toCharArray());

@@ -30,14 +30,13 @@ import static org.junit.Assert.assertNotNull;
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
 public class JwksEndpointTest implements InitializingBean {
-   // @Value("${issuer}") String issuer;
+
 
     @LocalServerPort
     private int port;
 
 
-//@Value("${local.management.port}")
-    //private int mgt;
+
 
     @Autowired
     private TestRestTemplate testRestTemplate;
@@ -95,7 +94,7 @@ public class JwksEndpointTest implements InitializingBean {
     @Override
     public void afterPropertiesSet() throws Exception {
 
-        HttpsJwks httpsJkws = new HttpsJwks("http://localhost:" + port + "/oidc/jwks" );
+        HttpsJwks httpsJkws = new HttpsJwks("https://localhost:" + port + "/oidc/jwks" );
         httpsJwksKeyResolver = new HttpsJwksVerificationKeyResolver(httpsJkws);
         assertNotNull(httpsJwksKeyResolver);
 
