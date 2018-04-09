@@ -13,11 +13,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
-
-import java.util.HashMap;
-import java.util.Map;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
@@ -46,8 +45,9 @@ public class LTILaunchController implements InitializingBean {
      * @return
      */
     @PostMapping("/launch")
-    public String greeting(@RequestParam(name="oauth_consumer_key", required=false, defaultValue="1234") String consumerKey,
+    public String launch(@RequestParam(name="oauth_consumer_key", required=false, defaultValue="1234") String consumerKey,
                            @RequestParam(name="user_id", required=false, defaultValue="jdoe") String userId,
+                         @RequestParam(name="custom_canvas_id", required=false, defaultValue="myccid") String canvasUserId,
                            Model model) throws Exception {
 
         log.info("Handling Request");
@@ -98,6 +98,7 @@ public class LTILaunchController implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
+
         jwksJson = keyPairService.getKeyInfo().getJsonWebKeySet().toJson();
         log.info("Initialized jwksJSON with: " + jwksJson);
 

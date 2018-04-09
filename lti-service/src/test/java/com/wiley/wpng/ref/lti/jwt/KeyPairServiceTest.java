@@ -32,6 +32,8 @@ public class KeyPairServiceTest {
 
     @Test
     public void testValidJwk() throws Exception {
+
+
         assertNotNull(keyPairService);
 
         JsonWebKeySet jwks = keyPairService.getKeyInfo().getJsonWebKeySet();
