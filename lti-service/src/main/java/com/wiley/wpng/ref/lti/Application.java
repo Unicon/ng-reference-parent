@@ -4,6 +4,7 @@ import com.wiley.wpng.ref.common.InMemoryUserService;
 import com.wiley.wpng.ref.common.UserRepository;
 
 import com.wiley.wpng.ref.common.UserService;
+import com.wiley.wpng.ref.lti.jwt.JwtService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -22,7 +23,7 @@ public class Application {
     @Bean
     public RestTemplate restTemplate(RestTemplateBuilder builder) {
         RestTemplate restTemplate = builder.build();
-        restTemplate.setInterceptors(Collections.singletonList(new BearerTokenInterceptor()));
+        restTemplate.setInterceptors(Collections.singletonList(new BearerTokenInterceptor(jwtService())));
 
         return restTemplate;
     }
@@ -33,5 +34,14 @@ public class Application {
         userService.setUserRepository(new UserRepository());
 
         return userService;
+    }
+    @Bean
+    public BearerTokenInterceptor bearerTokenInterceptor() {
+      return new BearerTokenInterceptor(jwtService());
+
+    }
+    @Bean
+    public JwtService jwtService() {
+        return new JwtService();
     }
 }

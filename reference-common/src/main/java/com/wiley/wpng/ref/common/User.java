@@ -42,6 +42,10 @@ public class User {
     @Getter @Setter
     private String loginName;
 
+    @JsonProperty("lms_user_id")
+    @Getter @Setter
+    private String lmsUserId;
+
     @JsonIgnore
     @Getter @Setter
     private String password;
@@ -55,15 +59,20 @@ public class User {
 
     }
 
+    public User() {
+        super();
+    }
 
-
-    public User(Integer id, String firstName, String lastName, String studentId,  String loginName, String password) {
+    public User(Integer id, String firstName, String lastName, String studentId,  String loginName, String password, String lmsUserId) {
+        super();
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.studentId = studentId;
         this.loginName = loginName;
         this.password = password;
+        this.lmsUserId = lmsUserId;
+
     }
 
 
