@@ -27,6 +27,9 @@ public class LTILaunchController implements InitializingBean {
     private JwtService jwtService;
 
     @Autowired
+    private RestClient restClient;
+
+    @Autowired
     private KeyPairService keyPairService;
 
     @Autowired
@@ -53,9 +56,9 @@ public class LTILaunchController implements InitializingBean {
         log.info("Handling Request");
         // The first step is to get the wiley id associated
         // with the user_id/oauth_consumer_key combination
+            User user = restClient.getUser(userId, canvasUserId, consumerKey);
 
-
-        User user = userService.getUser(userId, consumerKey);
+       // User user = userService.getUser(userId, consumerKey);
 
 
         if (user == null) {
