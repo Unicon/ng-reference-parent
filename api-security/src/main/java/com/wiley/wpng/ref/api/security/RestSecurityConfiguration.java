@@ -1,6 +1,5 @@
-package com.wiley.wpng.ref.user.api;
+package com.wiley.wpng.ref.api.security;
 
-import com.wiley.wpng.ref.user.api.filter.JWTAuthorizationFilter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;

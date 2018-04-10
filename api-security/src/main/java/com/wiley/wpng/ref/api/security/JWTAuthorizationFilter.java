@@ -1,4 +1,4 @@
-package com.wiley.wpng.ref.user.api.filter;
+package com.wiley.wpng.ref.api.security;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
