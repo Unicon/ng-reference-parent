@@ -19,7 +19,7 @@
         </dependency>
 
 
-
+        <!-- This provides an autoconfigured API security library for JWT validation during API calls -->
         <dependency>
             <groupId>com.wileyng</groupId>
             <artifactId>api-security</artifactId>
@@ -39,29 +39,14 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>com.jayway.jsonpath</groupId>
-            <artifactId>json-path</artifactId>
-            <scope>test</scope>
-        </dependency>
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.16.20</version>
             <scope>provided</scope>
         </dependency>
-<!--
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
--->
-        <dependency>
-            <groupId>org.bitbucket.b_c</groupId>
-            <artifactId>jose4j</artifactId>
-            <version>0.6.3</version>
-            <scope>compile</scope>
-        </dependency>
+
     </dependencies>
 
 

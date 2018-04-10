@@ -1,3 +1,5 @@
+# Default OpenID Connect Issuers
+# This should be overriden in the project using the security library
 oidc:
   oidcIssuers:
     http://localhost:8080/cas/oidc: https://localhost:8443/cas/oidc/jwks
