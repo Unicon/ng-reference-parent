@@ -19,13 +19,13 @@
 
 
         <!-- This provides an autoconfigured API security library for JWT validation during API calls -->
-        <!--
+
         <dependency>
             <groupId>com.wileyng</groupId>
             <artifactId>api-security</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-        -->
+
 
         <dependency>
             <groupId>com.wileyng</groupId>

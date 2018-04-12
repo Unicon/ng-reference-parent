@@ -1,6 +1,7 @@
 package com.wiley.wpng.ref.lti;
 
 import com.wiley.wpng.ref.common.User;
+import com.wiley.wpng.ref.common.com.wiley.wpng.ref.common.entity.LtiConsumer;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +24,17 @@ public class RestClient {
     @Value("${user.api.endpoint}")
     private String userApiEndpoint;
 
+    @Value("${consumer.api.endpoint}")
+    private String consumerApiEndpoint;
 
-    public User getUser(String lmsUserId, String canvasUserId, String consumerKey) {
+
+
+    public User getUser(String lmsUserId, String canvasUserId, Long institutionId) {
 
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(userApiEndpoint)
                 .queryParam("role", "student")
-                .queryParam("instititution_id", "123")
+                .queryParam("instititution_id", institutionId)
                 .queryParam("lti_user_id", "111")
                 .queryParam("canvas_user_id", canvasUserId);
 
@@ -44,5 +49,23 @@ public class RestClient {
             e.printStackTrace();
         }
         return user;
+    }
+    public LtiConsumer getLtiConsumer(String consumerKey) {
+
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(consumerApiEndpoint)
+                .queryParam("consumerKey", "student");
+
+
+
+        log.info("Sending the following request: " + builder.build().encode().toUriString());
+
+        HttpEntity<LtiConsumer>  response = restTemplate.getForEntity(builder.build().encode().toUriString(), LtiConsumer.class);
+        LtiConsumer ltiConsumer = null;
+        try {
+            ltiConsumer = response.getBody();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ltiConsumer;
     }
 }
