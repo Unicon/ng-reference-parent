@@ -13,6 +13,7 @@
         <module>auth-api</module>
         <module>reference-common</module>
         <module>lti-service</module>
+        <module>lti-consumer-api</module>
     </modules>
     <packaging>pom</packaging>
 
