@@ -1,6 +1,7 @@
 package com.wiley.wpng.ref.lti.jwt;
 
 import com.wiley.wpng.ref.common.User;
+import com.wiley.wpng.ref.common.com.wiley.wpng.ref.common.entity.LtiConsumer;
 import com.wiley.wpng.ref.lti.Application;
 import com.wiley.wpng.ref.lti.RestClient;
 import org.jose4j.jwk.JsonWebKey;
@@ -34,9 +35,15 @@ public class RestServiceIT {
 
 
     @Test
-    public void callApi()   {
-        User user = restClient.getUser("111", "3456", "1234");
+    public void callUserApi()   {
+        User user = restClient.getUser("111", "3456", 1234L);
         assertNotNull(user);
+
+    }
+    @Test
+    public void callConsumerApi()   {
+        LtiConsumer ltiConsumer = restClient.getLtiConsumer("1234");
+        assertNotNull(ltiConsumer);
 
     }
 }

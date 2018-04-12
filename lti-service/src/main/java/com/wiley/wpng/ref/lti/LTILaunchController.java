@@ -2,6 +2,7 @@ package com.wiley.wpng.ref.lti;
 
 import com.wiley.wpng.ref.common.User;
 import com.wiley.wpng.ref.common.UserService;
+import com.wiley.wpng.ref.common.com.wiley.wpng.ref.common.entity.LtiConsumer;
 import com.wiley.wpng.ref.lti.jwt.JwtService;
 import com.wiley.wpng.ref.lti.jwt.KeyPairService;
 import org.apache.commons.logging.Log;
@@ -54,9 +55,12 @@ public class LTILaunchController implements InitializingBean {
                            Model model) throws Exception {
 
         log.info("Handling Request");
-        // The first step is to get the wiley id associated
+        // The first step is to get the LtiConsumer information
+        LtiConsumer ltiConsumer = restClient.getLtiConsumer(consumerKey);
+
+        // The second step is to get the wiley id associated
         // with the user_id/oauth_consumer_key combination
-            User user = restClient.getUser(userId, canvasUserId, consumerKey);
+            User user = restClient.getUser(userId, canvasUserId, ltiConsumer.getInstitutionId());
 
        // User user = userService.getUser(userId, consumerKey);
 
