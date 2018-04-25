@@ -7,6 +7,7 @@
     <script src="js/jwt-client.js"></script>
 
     <script type="text/javascript">
+
         function callApi (token, user) {
             var url = 'https://localhost:8446/users/search?role=student&login_name=' + user;
 
@@ -48,7 +49,9 @@
 
 <script src="js/parseParms.js"></script>
 
-
+<a id="logoutLink" href="https://localhost:8443/cas/logout?service=https://localhost:8445/callback.html">
+    Logout
+</a>
 
 <div id="mainContent">
     <h1>Authentication Info</h1>
@@ -114,6 +117,9 @@
   //document.getElementById("audience").appendChild(document.createTextNode("audience: " + session.claim.aud));
  // document.getElementById("user").appendChild(document.createTextNode("user: " + session.claim.sub));
   //document.getElementById("token").appendChild(document.createTextNode("Raw JWT: " + idToken));
+
+
+
 </script>
 
 
